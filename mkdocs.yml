@@ -1,11 +1,10 @@
 site_name: My Personal Wiki
-site_url: https://example.com/my-wiki/ # Update this with your actual GitHub Pages URL later
-repo_url: https://github.com/USERNAME/my-wiki # Update with your repo URL
+site_url: https://KanyeEas.github.io/my-wiki/
+repo_url: https://github.com/KanyeEas/my-wiki
 repo_name: my-wiki
 
 theme:
   name: material
-  language: en # Change to 'zh' for Chinese UI if preferred
   features:
     - navigation.tabs
     - navigation.sections
@@ -31,6 +30,8 @@ nav:
   - Home: index.md
   - Guide:
     - Example: guide/example.md
+  - ArkCompiler:
+    - Arena Allocator Testing: arkcompiler/arena_allocator_testing_guide.md
 
 markdown_extensions:
   - admonition
@@ -47,3 +48,12 @@ markdown_extensions:
 
 plugins:
   - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+        - locale: zh
+          name: 简体中文

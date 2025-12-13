@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mkdocs-material
+          pip install mkdocs-material mkdocs-static-i18n
 
       - name: Build and Deploy
         # mkdocs gh-deploy will build the site and push it to the gh-pages branch
