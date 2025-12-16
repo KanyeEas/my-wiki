@@ -42,6 +42,7 @@ auto it = std::partition_point(v.begin(), v.end(), [](int i) {
     return i <= 4; // 前半部分满足 <= 4 (True)，后半部分不满足 (False)
 });
 // it 指向 5
+```
 
 ## 3. 附录
 
