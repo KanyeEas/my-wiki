@@ -11,6 +11,7 @@
 - **[编译指南](arkcompiler/build_guide.zh.md)**: 如何编译 ArkCompiler 和 Device LLVM。
 - **[Arena 分配器](arkcompiler/arena_allocator_testing_guide.zh.md)**: 内存管理优化的测试指南。
 - **[Trace 完整指南](arkcompiler/TRACE_COMPLETE_GUIDE.zh.md)**: 覆盖 Trace 原理、使用方法、可视化和自动插桩。
+- **[锁实现完整分析](arkcompiler/LOCK_IMPLEMENTATION_WIKI.md)**: Ark Runtime 锁机制 Deep Dive，包含 Futex、死锁避免和性能优化。
 
 ### [LeetCode](leetcode/cpp_binary_search_guide.zh.md)
 算法学习笔记和解题模式。
