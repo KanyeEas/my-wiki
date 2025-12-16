@@ -1,4 +1,4 @@
-site_name: My Personal Wiki
+site_name: Fanzewei's Wiki
 site_url: https://KanyeEas.github.io/my-wiki/
 repo_url: https://github.com/KanyeEas/my-wiki
 repo_name: my-wiki
@@ -28,15 +28,19 @@ theme:
 
 nav:
   - Home: index.md
-  - Guide:
-    - Example: guide/example.md
+  - Leetcode:
+    - C++ Binary Search Guide: leetcode/cpp_binary_search_guide.zh.md
   - ArkCompiler:
     - Arena Allocator Testing: arkcompiler/arena_allocator_testing_guide.md
 
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -53,7 +57,7 @@ plugins:
       fallback_to_default: true
       languages:
         - locale: en
-          default: true
           name: English
         - locale: zh
+          default: true
           name: 简体中文
