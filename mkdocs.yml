@@ -32,6 +32,7 @@ nav:
     - C++ Binary Search Guide: leetcode/cpp_binary_search_guide.zh.md
   - ArkCompiler:
     - Arena Allocator Testing: arkcompiler/arena_allocator_testing_guide.md
+    - Build Guide: arkcompiler/build_guide.md
 
 markdown_extensions:
   - admonition
