@@ -33,6 +33,7 @@ nav:
   - ArkCompiler:
     - Arena Allocator Testing: arkcompiler/arena_allocator_testing_guide.md
     - Build Guide: arkcompiler/build_guide.md
+    - Trace Complete Guide: arkcompiler/TRACE_COMPLETE_GUIDE.md
 
 markdown_extensions:
   - admonition
