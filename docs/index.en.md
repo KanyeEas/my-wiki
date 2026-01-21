@@ -11,6 +11,7 @@ Deep dives into the ArkCompiler usage, source code analysis, and build systems.
 - **[Build Guide](arkcompiler/build_guide.en.md)**: How to compile ArkCompiler and Device LLVM.
 - **[Arena Allocator](arkcompiler/arena_allocator_testing_guide.en.md)**: Testing guide for memory management optimization.
 - **[Trace Complete Guide](arkcompiler/TRACE_COMPLETE_GUIDE.zh.md)**: (Chinese) Comprehensive guide on Trace system, visualization, and auto-instrumentation.
+- **[es2panda Developer Guide](arkcompiler/es2panda-developer-guide.md)**: (Chinese) Common configurations, dependency management, and standard library usage.
 - **[Lock Implementation Analysis](arkcompiler/LOCK_IMPLEMENTATION_WIKI.md)**: (Chinese) Deep dive into Ark Runtime lock mechanisms, including Futex, deadlock avoidance, and performance optimizations.
 
 
