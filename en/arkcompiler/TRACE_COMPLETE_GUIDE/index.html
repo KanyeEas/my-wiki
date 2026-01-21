@@ -1,0 +1,3157 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://KanyeEas.github.io/my-wiki/en/arkcompiler/TRACE_COMPLETE_GUIDE/">
+      
+      
+        <link rel="prev" href="../build_guide/">
+      
+      
+        <link rel="next" href="../es2panda-developer-guide/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../../arkcompiler/TRACE_COMPLETE_GUIDE/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Trace Complete Guide - Fanzewei's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ark-runtime-trace" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="Fanzewei&#39;s Wiki" class="md-header__button md-logo" aria-label="Fanzewei's Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Fanzewei's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Trace Complete Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../arkcompiler/TRACE_COMPLETE_GUIDE/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/KanyeEas/my-wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../leetcode/cpp_binary_search_guide/" class="md-tabs__link">
+          
+  
+  
+  Leetcode
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../arena_allocator_testing_guide/" class="md-tabs__link">
+          
+  
+  
+  ArkCompiler
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Fanzewei&#39;s Wiki" class="md-nav__button md-logo" aria-label="Fanzewei's Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Fanzewei's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/KanyeEas/my-wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Leetcode
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Leetcode
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../leetcode/cpp_binary_search_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ Binary Search Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ArkCompiler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ArkCompiler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arena_allocator_testing_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arena Allocator Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace Complete Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Trace 系统架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Trace 系统架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 三层架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 核心文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 关键实现细节
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 关键实现细节">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tracer-runtimetraceh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracer 类（runtime/trace.h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件编译逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ftrace-platformsunixlibarkbasetracecpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ftrace 实现（platforms/unix/libarkbase/trace.cpp）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Trace 格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 嵌套 Trace 示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-linux-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 在 Linux 上抓取 Trace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 在 Linux 上抓取 Trace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 前置条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 完整流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 完整流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ftrace-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤1：启动 ftrace 收集（终端1）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤2：运行程序（终端2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤3：查看结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-wsl2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 WSL2 特殊说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 验证 Trace 是否生效
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-perf-vs-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Perf vs Trace 原理对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Perf vs Trace 原理对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-perf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Perf（采样）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Perf（采样）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据来源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Trace（插桩）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Trace（插桩）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ring-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ring Buffer 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 对比总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 最佳实践：组合使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 自动插桩方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自动插桩方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 需求场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-gccclang-finstrument-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 解决方案：GCC/Clang -finstrument-functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 解决方案：GCC/Clang -finstrument-functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实现钩子函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编译选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制粒度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 增强功能：记录参数和检查点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-ark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 集成到 ARK 项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 集成到 ARK 项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmakeliststxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CMakeLists.txt 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编译和运行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 配置选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 优缺点对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Trace 可视化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Trace 可视化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-perfetto-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Perfetto UI（推荐）⭐⭐⭐
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-chrome-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Chrome Tracing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 可视化效果示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常见问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Trace 没有输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-undefined-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 编译错误：undefined reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-wsl2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 WSL2 权限问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 性能影响太大
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Trace 文件太大
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 嵌套 Trace 是否支持？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 快速参考
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 快速参考">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 基本使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 自动插桩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 关键文件位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 环境变量速查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        适用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../es2panda-developer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    es2panda Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LOCK_IMPLEMENTATION_WIKI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock Implementation Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Trace 系统架构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Trace 系统架构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 三层架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 核心文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 关键实现细节
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 关键实现细节">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tracer-runtimetraceh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracer 类（runtime/trace.h）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        条件编译逻辑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ftrace-platformsunixlibarkbasetracecpp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ftrace 实现（platforms/unix/libarkbase/trace.cpp）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Trace 格式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 嵌套 Trace 示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-linux-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 在 Linux 上抓取 Trace
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 在 Linux 上抓取 Trace">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 前置条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 完整流程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 完整流程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-ftrace-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤1：启动 ftrace 收集（终端1）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤2：运行程序（终端2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        步骤3：查看结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-wsl2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 WSL2 特殊说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 验证 Trace 是否生效
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-perf-vs-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Perf vs Trace 原理对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Perf vs Trace 原理对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-perf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Perf（采样）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Perf（采样）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据来源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Trace（插桩）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Trace（插桩）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ring-buffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ring Buffer 结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        性能对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3 对比总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4 最佳实践：组合使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 自动插桩方案
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自动插桩方案">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 需求场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-gccclang-finstrument-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 解决方案：GCC/Clang -finstrument-functions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 解决方案：GCC/Clang -finstrument-functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        实现钩子函数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编译选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制粒度
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 增强功能：记录参数和检查点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-ark" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 集成到 ARK 项目
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 集成到 ARK 项目">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cmakeliststxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CMakeLists.txt 配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        编译和运行
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 配置选项
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 优缺点对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Trace 可视化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Trace 可视化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-perfetto-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Perfetto UI（推荐）⭐⭐⭐
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-chrome-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Chrome Tracing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 可视化效果示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 常见问题
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 常见问题">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Trace 没有输出
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-undefined-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 编译错误：undefined reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-wsl2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 WSL2 权限问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 性能影响太大
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Trace 文件太大
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 嵌套 Trace 是否支持？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 快速参考
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 快速参考">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 基本使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 自动插桩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 关键文件位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 环境变量速查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 总结
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. 总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        核心要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        适用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="ark-runtime-trace">ARK Runtime Trace 完整指南<a class="headerlink" href="#ark-runtime-trace" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>本文档涵盖 Trace 系统的实现原理、使用方法、可视化工具和高级技巧</p>
+</blockquote>
+<h2 id="1-trace">1. Trace 系统架构<a class="headerlink" href="#1-trace" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 三层架构<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>ARK 的 Trace 系统采用三层架构：</p>
+<pre class="mermaid"><code>graph TD
+    A["应用层: ark::Tracer&lt;br&gt;Tracer::Start('name')&lt;br&gt;Tracer::Finish()"]
+    B["C接口层: StartTrace/FinishTrace&lt;br&gt;(条件编译: HiTrace 或 ftrace)"]
+    C["实现层: ark::trace&lt;br&gt;BeginTracePoint/EndTracePoint&lt;br&gt;→ /sys/kernel/debug/tracing/"]
+
+    A --&gt; B
+    B --&gt; C</code></pre>
+<h3 id="12">1.2 核心文件<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>runtime/trace.h</code></td>
+<td>Tracer 类定义，条件编译选择实现</td>
+</tr>
+<tr>
+<td><code>libarkbase/trace/trace.h</code></td>
+<td>ark::trace 命名空间 API</td>
+</tr>
+<tr>
+<td><code>platforms/unix/libarkbase/trace.cpp</code></td>
+<td>ftrace 实现（Linux）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13">1.3 关键实现细节<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<h4 id="tracer-runtimetraceh">Tracer 类（runtime/trace.h）<a class="headerlink" href="#tracer-runtimetraceh" title="Permanent link">&para;</a></h4>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">namespace</span><span class="w"> </span><span class="nn">ark</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">Tracer</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">public</span><span class="o">:</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Start</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="n">StartTrace</span><span class="p">(</span><span class="n">TRACER_TAG</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">limit</span><span class="p">);</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Finish</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="n">FinishTrace</span><span class="p">(</span><span class="n">TRACER_TAG</span><span class="p">);</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">Count</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">        </span><span class="n">CountTrace</span><span class="p">(</span><span class="n">TRACER_TAG</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="p">};</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="_1">条件编译逻辑<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p><strong>当未定义 <code>PANDA_USE_HITRACE</code> 时（Linux 默认）：</strong></p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// runtime/trace.h</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;libarkbase/trace/trace.h&quot;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">StartTrace</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="o">&amp;</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">ark</span><span class="o">::</span><span class="n">trace</span><span class="o">::</span><span class="n">BeginTracePoint</span><span class="p">(</span><span class="n">name</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span><span class="w">  </span><span class="c1">// 调用 ftrace</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">FinishTrace</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">tag</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="n">ark</span><span class="o">::</span><span class="n">trace</span><span class="o">::</span><span class="n">EndTracePoint</span><span class="p">();</span><span class="w">  </span><span class="c1">// 调用 ftrace</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>当定义 <code>PANDA_USE_HITRACE</code> 时（HarmonyOS）：</strong></p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;hitrace_meter/hitrace_meter.h&quot;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1">// 使用 HiTrace API</span>
+</span></code></pre></div>
+<h4 id="ftrace-platformsunixlibarkbasetracecpp">ftrace 实现（platforms/unix/libarkbase/trace.cpp）<a class="headerlink" href="#ftrace-platformsunixlibarkbasetracecpp" title="Permanent link">&para;</a></h4>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">// 初始化：检查环境变量</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">DoInit</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">pandaTraceVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">getenv</span><span class="p">(</span><span class="s">&quot;PANDA_TRACE&quot;</span><span class="p">);</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pandaTraceVal</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">strcmp</span><span class="p">(</span><span class="n">pandaTraceVal</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="n">g_traceMarkerFd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">open</span><span class="p">(</span><span class="s">&quot;/sys/kernel/debug/tracing/trace_marker&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">O_WRONLY</span><span class="p">);</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">g_traceMarkerFd</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="c1">// 写入 trace 点</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="kt">void</span><span class="w"> </span><span class="nf">DoBeginTracePoint</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="n">dprintf</span><span class="p">(</span><span class="n">g_traceMarkerFd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;B|%d|%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">str</span><span class="p">);</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p">}</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="kt">void</span><span class="w"> </span><span class="nf">DoEndTracePoint</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="n">dprintf</span><span class="p">(</span><span class="n">g_traceMarkerFd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;E|&quot;</span><span class="p">);</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="14-trace">1.4 Trace 格式<a class="headerlink" href="#14-trace" title="Permanent link">&para;</a></h3>
+<p>ftrace 使用标准格式：</p>
+<ul>
+<li><strong>Begin</strong>: <code>B|&lt;pid&gt;|&lt;name&gt;</code> - 开始一个 trace 点</li>
+<li><strong>End</strong>: <code>E|</code> - 结束当前 trace 点（LIFO 栈结构）</li>
+<li><strong>Counter</strong>: <code>C|&lt;pid&gt;|&lt;name&gt;|&lt;value&gt;</code> - 计数器类型</li>
+</ul>
+<p><strong>关键特性：</strong>
+- ✅ <strong>支持嵌套</strong>：ftrace 使用栈结构，完全支持嵌套的 Begin/End 对
+- ✅ <strong>线程安全</strong>：每个进程独立，通过 PID 区分
+- ✅ <strong>高性能</strong>：写入内存 ring buffer，纳秒级延迟</p>
+<h3 id="15-trace">1.5 嵌套 Trace 示例<a class="headerlink" href="#15-trace" title="Permanent link">&para;</a></h3>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">MyFunction</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="n">Tracer</span><span class="o">::</span><span class="n">Start</span><span class="p">(</span><span class="s">&quot;MyFunction&quot;</span><span class="p">);</span><span class="w">        </span><span class="c1">// Begin &quot;MyFunction&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">Tracer</span><span class="o">::</span><span class="n">Start</span><span class="p">(</span><span class="s">&quot;Step1&quot;</span><span class="p">);</span><span class="w">            </span><span class="c1">// Begin &quot;Step1&quot;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">DoStep1</span><span class="p">();</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">Tracer</span><span class="o">::</span><span class="n">Finish</span><span class="p">();</span><span class="w">                  </span><span class="c1">// End &quot;Step1&quot;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="n">Tracer</span><span class="o">::</span><span class="n">Start</span><span class="p">(</span><span class="s">&quot;Step2&quot;</span><span class="p">);</span><span class="w">            </span><span class="c1">// Begin &quot;Step2&quot;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="n">DoStep2</span><span class="p">();</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span><span class="n">Tracer</span><span class="o">::</span><span class="n">Finish</span><span class="p">();</span><span class="w">                  </span><span class="c1">// End &quot;Step2&quot;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span><span class="n">Tracer</span><span class="o">::</span><span class="n">Finish</span><span class="p">();</span><span class="w">                  </span><span class="c1">// End &quot;MyFunction&quot;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>输出到 ftrace：</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>B|1234|MyFunction
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>B|1234|Step1
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>E|
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>B|1234|Step2
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>E|
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>E|
+</span></code></pre></div></p>
+<p><strong>可视化效果（Perfetto）：</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>MyFunction ┃ ████████████████████████
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  Step1    ┃    ████
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  Step2    ┃        ██████
+</span></code></pre></div></p>
+<hr />
+<h2 id="2-linux-trace">2. 在 Linux 上抓取 Trace<a class="headerlink" href="#2-linux-trace" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 前置条件<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>WSL2/Linux 环境</strong></li>
+<li><strong>Root 权限</strong>（访问 <code>/sys/kernel/debug/tracing</code>）</li>
+<li><strong>ftrace 已启用</strong>（WSL2 默认启用）</li>
+</ol>
+<h3 id="22">2.2 完整流程<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<h4 id="1-ftrace-1">步骤1：启动 ftrace 收集（终端1）<a class="headerlink" href="#1-ftrace-1" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># 使用提供的脚本（WSL2 兼容）</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>sudo<span class="w"> </span>/path/to/scripts/trace_enable_wsl2.sh<span class="w"> </span>output.trace<span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">8192</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># 参数说明：</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1">#   output.trace - 输出文件名</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1">#   60 - 跟踪时长（秒），可随时 Ctrl+C 提前结束</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1">#   8192 - 缓冲区大小（KB），默认 8MB</span>
+</span></code></pre></div>
+<h4 id="22_1">步骤2：运行程序（终端2）<a class="headerlink" href="#22_1" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 关键：必须设置环境变量 PANDA_TRACE=1</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">PANDA_TRACE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>sudo<span class="w"> </span>-E<span class="w"> </span>./your_program
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># 注意：</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># - 使用 sudo -E 保留环境变量</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="c1"># - 或者直接在 root shell 中：</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>sudo<span class="w"> </span>su
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PANDA_TRACE</span><span class="o">=</span><span class="m">1</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>./your_program
+</span></code></pre></div>
+<h4 id="3">步骤3：查看结果<a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
+<p><strong>方法1：Perfetto UI（推荐）</strong>
+1. 访问：https://ui.perfetto.dev/
+2. 点击 "Open trace file"
+3. 选择 <code>output.trace</code>
+4. 查看可视化时间线</p>
+<p><strong>方法2：Chrome Tracing</strong>
+1. 转换格式（如需要）：
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>python3<span class="w"> </span>ftrace_to_json.py<span class="w"> </span>output.trace<span class="w"> </span>output.json
+</span></code></pre></div>
+2. 打开 <code>chrome://tracing</code>
+3. 加载 <code>output.json</code></p>
+<h3 id="23-wsl2">2.3 WSL2 特殊说明<a class="headerlink" href="#23-wsl2" title="Permanent link">&para;</a></h3>
+<p>在 WSL2 中，<code>/sys/kernel/debug/tracing</code> 目录权限无法通过 <code>chmod</code> 修改，但：
+- ✅ 以 root 身份可以直接访问
+- ✅ <code>trace_marker</code> 文件本身是可写的
+- ✅ 使用提供的 <code>trace_enable_wsl2.sh</code> 脚本（跳过权限设置）</p>
+<h3 id="24-trace">2.4 验证 Trace 是否生效<a class="headerlink" href="#24-trace" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 检查 trace 文件中是否有您的标记</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>grep<span class="w"> </span><span class="s2">&quot;fzw::GetClass&quot;</span><span class="w"> </span>output.trace
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># 检查是否有 trace_marker 写入</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>grep<span class="w"> </span><span class="s2">&quot;tracing_mark_write&quot;</span><span class="w"> </span>output.trace
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># 如果都没有，检查：</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># 1. 是否设置了 PANDA_TRACE=1</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># 2. 程序是否真的调用了 Tracer::Start/Finish</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1"># 3. 是否有 root 权限</span>
+</span></code></pre></div>
+<hr />
+<h2 id="3-perf-vs-trace">3. Perf vs Trace 原理对比<a class="headerlink" href="#3-perf-vs-trace" title="Permanent link">&para;</a></h2>
+<h3 id="31-perf">3.1 Perf（采样）<a class="headerlink" href="#31-perf" title="Permanent link">&para;</a></h3>
+<h4 id="_2">原理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>时间轴 →
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>     ↓      ↓      ↓      ↓      ↓
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>   采样1   采样2   采样3   采样4   采样5
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>每次采样时：
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>1. 内核收到时钟中断（timer interrupt）
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>2. 读取 CPU 寄存器（RIP/EIP - 指令指针）
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>3. 遍历栈帧（stack unwinding）
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>4. 记录完整调用栈
+</span></code></pre></div>
+<h4 id="_3">数据来源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>寄存器</strong>：RIP/EIP（当前执行位置）、RSP/ESP（栈指针）</li>
+<li><strong>栈内存</strong>：返回地址链</li>
+<li><strong>符号表</strong>：将地址转换为函数名</li>
+<li><strong>性能计数器</strong>（PMU）：CPU cycles、cache miss 等</li>
+</ul>
+<h4 id="_4">特点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>类型</strong></td>
+<td>被动采样（基于中断）</td>
+</tr>
+<tr>
+<td><strong>精确度</strong></td>
+<td>统计性质（概率）</td>
+</tr>
+<tr>
+<td><strong>开销</strong></td>
+<td>低（1-3% CPU）</td>
+</tr>
+<tr>
+<td><strong>时序</strong></td>
+<td>无（只有采样点）</td>
+</tr>
+<tr>
+<td><strong>因果关系</strong></td>
+<td>不清楚</td>
+</tr>
+<tr>
+<td><strong>短函数</strong></td>
+<td>可能丢失</td>
+</tr>
+<tr>
+<td><strong>侵入性</strong></td>
+<td>无需改代码</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>找热点、CPU 分析</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-trace">3.2 Trace（插桩）<a class="headerlink" href="#32-trace" title="Permanent link">&para;</a></h3>
+<h4 id="_5">原理<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">// 应用层写入</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;B|1234|FunctionName&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">...);</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">// 内核层处理</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="mf">1.</span><span class="w"> </span><span class="n">接收写入请求</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="mf">2.</span><span class="w"> </span><span class="n">不落盘</span><span class="err">，</span><span class="n">直接写入</span><span class="w"> </span><span class="n">ring</span><span class="w"> </span><span class="n">buffer</span><span class="err">（</span><span class="n">内存中</span><span class="err">）</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="mf">3.</span><span class="w"> </span><span class="n">Ring</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="n">是无锁的</span><span class="w"> </span><span class="n">per</span><span class="o">-</span><span class="n">CPU</span><span class="w"> </span><span class="n">缓冲区</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="mf">4.</span><span class="w"> </span><span class="n">极低开销</span><span class="err">（</span><span class="n">纳秒级</span><span class="err">）</span>
+</span></code></pre></div>
+<h4 id="ring-buffer">Ring Buffer 结构<a class="headerlink" href="#ring-buffer" title="Permanent link">&para;</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Per-CPU Ring Buffers（每个CPU一个，避免竞争）:
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>CPU0: [Event1][Event2][Event3]... → 循环覆盖
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>CPU1: [Event1][Event2][Event3]... → 循环覆盖
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>CPU2: [Event1][Event2][Event3]... → 循环覆盖
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>...
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>特点：
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>- 无锁（lock-free）
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>- 内存预分配
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>- 循环覆盖（可配置不覆盖）
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>- 每个 CPU 独立，无竞争
+</span></code></pre></div>
+<h4 id="_6">性能对比<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>延迟</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>普通 <code>printf</code></td>
+<td>~1-10 µs（微秒）</td>
+</tr>
+<tr>
+<td>文件 <code>write</code></td>
+<td>~1-5 µs</td>
+</tr>
+<tr>
+<td><strong>ftrace marker</strong></td>
+<td><strong>~50-200 ns（纳秒）</strong></td>
+</tr>
+<tr>
+<td><strong>差距</strong></td>
+<td><strong>快 10-100 倍！</strong></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_7">特点<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>类型</strong></td>
+<td>主动记录（函数调用时）</td>
+</tr>
+<tr>
+<td><strong>精确度</strong></td>
+<td>精确（每次调用）</td>
+</tr>
+<tr>
+<td><strong>开销</strong></td>
+<td>中（5-20%，取决于频率）</td>
+</tr>
+<tr>
+<td><strong>时序</strong></td>
+<td>完整（精确顺序）</td>
+</tr>
+<tr>
+<td><strong>因果关系</strong></td>
+<td>清楚（嵌套关系）</td>
+</tr>
+<tr>
+<td><strong>短函数</strong></td>
+<td>不会丢失</td>
+</tr>
+<tr>
+<td><strong>侵入性</strong></td>
+<td>需要插桩</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>找顺序、延迟分析</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33">3.3 对比总结<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>Perf（采样）</th>
+<th>Trace（插桩）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>原理</strong></td>
+<td>被动采样</td>
+<td>主动记录</td>
+</tr>
+<tr>
+<td><strong>精确度</strong></td>
+<td>统计（概率）</td>
+<td>精确（每次）</td>
+</tr>
+<tr>
+<td><strong>开销</strong></td>
+<td>低（1-3%）</td>
+<td>中（5-20%）</td>
+</tr>
+<tr>
+<td><strong>时序</strong></td>
+<td>无</td>
+<td>完整</td>
+</tr>
+<tr>
+<td><strong>因果关系</strong></td>
+<td>不清楚</td>
+<td>清楚</td>
+</tr>
+<tr>
+<td><strong>短函数</strong></td>
+<td>可能丢失</td>
+<td>不会丢失</td>
+</tr>
+<tr>
+<td><strong>侵入性</strong></td>
+<td>无需改代码</td>
+<td>需要插桩</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>找热点、CPU分析</td>
+<td>找顺序、延迟分析</td>
+</tr>
+<tr>
+<td><strong>数据量</strong></td>
+<td>小</td>
+<td>大</td>
+</tr>
+</tbody>
+</table>
+<h3 id="34">3.4 最佳实践：组合使用<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 第一步：用 Perf 找热点</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>perf<span class="w"> </span>record<span class="w"> </span>-g<span class="w"> </span>./your_program
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>perf<span class="w"> </span>report<span class="w"> </span>--stdio
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># 发现：GetClass() 占用 40% CPU</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1"># 第二步：用 Trace 看细节</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># 在 GetClass() 中加 trace 点</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>Tracer::Start<span class="o">(</span><span class="s2">&quot;GetClass&quot;</span><span class="o">)</span><span class="p">;</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">  </span>Tracer::Start<span class="o">(</span><span class="s2">&quot;LoadFromCache&quot;</span><span class="o">)</span><span class="p">;</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">  </span>Tracer::Finish<span class="o">()</span><span class="p">;</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">  </span>Tracer::Start<span class="o">(</span><span class="s2">&quot;LoadFromDisk&quot;</span><span class="o">)</span><span class="p">;</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">  </span>Tracer::Finish<span class="o">()</span><span class="p">;</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>Tracer::Finish<span class="o">()</span><span class="p">;</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="c1"># 发现：LoadFromDisk 很慢，需要优化</span>
+</span></code></pre></div>
+<hr />
+<h2 id="4">4. 自动插桩方案<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 需求场景<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<ul>
+<li>✅ 学习代码时，想完整看到执行过程</li>
+<li>✅ 不想手动在每个函数加 Trace Start/Finish</li>
+<li>✅ 希望自动插桩所有函数</li>
+<li>✅ 函数名自动作为 trace 名称</li>
+<li>✅ 可选地在某些函数附加更多信息（参数、检查点）</li>
+</ul>
+<h3 id="42-gccclang-finstrument-functions">4.2 解决方案：GCC/Clang <code>-finstrument-functions</code><a class="headerlink" href="#42-gccclang-finstrument-functions" title="Permanent link">&para;</a></h3>
+<h4 id="_8">原理<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>编译器会在<strong>每个函数的开头和结尾</strong>自动插入对钩子函数的调用：</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">// 源代码</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;x = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="p">}</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="c1">// 编译器自动转换为（概念上）</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="kt">void</span><span class="w"> </span><span class="nf">my_function</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="n">__cyg_profile_func_enter</span><span class="p">(</span><span class="n">my_function_addr</span><span class="p">,</span><span class="w"> </span><span class="n">caller_addr</span><span class="p">);</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;x = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="n">__cyg_profile_func_exit</span><span class="p">(</span><span class="n">my_function_addr</span><span class="p">,</span><span class="w"> </span><span class="n">caller_addr</span><span class="p">);</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="_9">实现钩子函数<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="c1">// 函数进入钩子</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">__cyg_profile_func_enter</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">this_fn</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">call_site</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">func_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetFunctionName</span><span class="p">(</span><span class="n">this_fn</span><span class="p">);</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="n">WriteTrace</span><span class="p">(</span><span class="s">&quot;B|%d|%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">getpid</span><span class="p">(),</span><span class="w"> </span><span class="n">func_name</span><span class="p">);</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">    </span><span class="c1">// 函数退出钩子</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">__cyg_profile_func_exit</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">this_fn</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">call_site</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">        </span><span class="n">WriteTrace</span><span class="p">(</span><span class="s">&quot;E|&quot;</span><span class="p">);</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="_10">编译选项<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># 基本用法</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>g++<span class="w"> </span>-finstrument-functions<span class="w"> </span>your_code.cpp
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># 需要符号解析（获取函数名）</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>g++<span class="w"> </span>-finstrument-functions<span class="w"> </span>-rdynamic<span class="w"> </span>-ldl<span class="w"> </span>your_code.cpp
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1"># 排除某些函数（避免递归）</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>g++<span class="w"> </span>-finstrument-functions<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w">    </span>-finstrument-functions-exclude-file-list<span class="o">=</span>trace.cpp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">    </span>-finstrument-functions-exclude-function-list<span class="o">=</span>__cyg_profile_func_enter
+</span></code></pre></div>
+<h4 id="_11">控制粒度<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1">// 排除特定函数</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kt">void</span><span class="w"> </span><span class="nf">my_hot_function</span><span class="p">()</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">no_instrument_function</span><span class="p">));</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1">// 排除特定文件</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="cp">#pragma GCC optimize(&quot;no-instrument-functions&quot;)</span>
+</span></code></pre></div>
+<h3 id="43">4.3 增强功能：记录参数和检查点<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">// 提供宏用于记录额外信息</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="cp">#define TRACE_ARGS(fmt, ...) \</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="cp">    do { \</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="cp">        char buf[512]; \</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="cp">        snprintf(buf, sizeof(buf), fmt, ##__VA_ARGS__); \</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="cp">        TraceHelper::LogArgs(__func__, buf); \</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="cp">    } while(0)</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="cp">#define TRACE_CHECKPOINT(msg) \</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="cp">    TraceHelper::LogCheckpoint(__func__, msg)</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="c1">// 使用示例</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="kt">void</span><span class="w"> </span><span class="nf">ClassLinker::GetClass</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">File</span><span class="o">&amp;</span><span class="w"> </span><span class="n">pf</span><span class="p">,</span><span class="w"> </span><span class="n">EntityId</span><span class="w"> </span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">    </span><span class="c1">// 函数入口/退出由编译器自动处理</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="w">    </span><span class="c1">// 记录关键参数（可选）</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="w">    </span><span class="n">TRACE_ARGS</span><span class="p">(</span><span class="s">&quot;file=%s, id=%x&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pf</span><span class="p">.</span><span class="n">GetFilename</span><span class="p">(),</span><span class="w"> </span><span class="n">id</span><span class="p">.</span><span class="n">GetOffset</span><span class="p">());</span>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a><span class="w">    </span><span class="n">Class</span><span class="w"> </span><span class="o">*</span><span class="n">cls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pf</span><span class="p">.</span><span class="n">GetCache</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetClass</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cls</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a><span class="w">        </span><span class="n">TRACE_CHECKPOINT</span><span class="p">(</span><span class="s">&quot;cache hit&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// 可选：记录检查点</span>
+</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">cls</span><span class="p">;</span>
+</span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a>
+</span><span id="__span-19-25"><a id="__codelineno-19-25" name="__codelineno-19-25" href="#__codelineno-19-25"></a><span class="w">    </span><span class="n">TRACE_CHECKPOINT</span><span class="p">(</span><span class="s">&quot;cache miss&quot;</span><span class="p">);</span>
+</span><span id="__span-19-26"><a id="__codelineno-19-26" name="__codelineno-19-26" href="#__codelineno-19-26"></a><span class="w">    </span><span class="n">cls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoadClass</span><span class="p">(...);</span>
+</span><span id="__span-19-27"><a id="__codelineno-19-27" name="__codelineno-19-27" href="#__codelineno-19-27"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cls</span><span class="p">;</span>
+</span><span id="__span-19-28"><a id="__codelineno-19-28" name="__codelineno-19-28" href="#__codelineno-19-28"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="44-ark">4.4 集成到 ARK 项目<a class="headerlink" href="#44-ark" title="Permanent link">&para;</a></h3>
+<h4 id="cmakeliststxt">CMakeLists.txt 配置<a class="headerlink" href="#cmakeliststxt" title="Permanent link">&para;</a></h4>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c"># 添加自动插桩选项</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nb">option</span><span class="p">(</span><span class="s">ENABLE_AUTO_TRACE</span><span class="w"> </span><span class="s2">&quot;Enable automatic function tracing&quot;</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="nb">if</span><span class="p">(</span><span class="s">ENABLE_AUTO_TRACE</span><span class="p">)</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">    </span><span class="c"># 添加编译选项</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">    </span><span class="nb">add_compile_options</span><span class="p">(</span><span class="s">-finstrument-functions</span><span class="p">)</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">    </span><span class="c"># 排除 trace 系统本身</span>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="w">    </span><span class="nb">set_source_files_properties</span><span class="p">(</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">        </span><span class="s">libarkbase/trace/auto_trace.cpp</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="w">        </span><span class="s">libarkbase/trace/trace.cpp</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="w">        </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">COMPILE_FLAGS</span><span class="w"> </span><span class="s2">&quot;-fno-instrument-functions&quot;</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="w">    </span><span class="p">)</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="w">    </span><span class="c"># 添加链接选项</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="w">    </span><span class="nb">add_link_options</span><span class="p">(</span><span class="s">-rdynamic</span><span class="w"> </span><span class="s">-ldl</span><span class="p">)</span>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a><span class="w">    </span><span class="c"># 定义宏</span>
+</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="w">    </span><span class="nb">add_definitions</span><span class="p">(</span><span class="s">-DENABLE_AUTO_TRACE</span><span class="p">)</span>
+</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="nb">endif</span><span class="p">()</span>
+</span></code></pre></div>
+<h4 id="_12">编译和运行<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># 编译（启用自动插桩）</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>cmake<span class="w"> </span>-DENABLE_AUTO_TRACE<span class="o">=</span>ON<span class="w"> </span>build
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># 运行（启用 trace）</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="nv">PANDA_TRACE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>sudo<span class="w"> </span>-E<span class="w"> </span>./build/bin/ark<span class="w"> </span>your_program.abc
+</span></code></pre></div>
+<h3 id="45">4.5 配置选项<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>环境变量</th>
+<th>说明</th>
+<th>默认值</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PANDA_TRACE</code></td>
+<td>启用 trace</td>
+<td>-</td>
+<td><code>PANDA_TRACE=1</code></td>
+</tr>
+<tr>
+<td><code>TRACE_MAX_DEPTH</code></td>
+<td>最大追踪深度</td>
+<td>20</td>
+<td><code>TRACE_MAX_DEPTH=10</code></td>
+</tr>
+<tr>
+<td><code>TRACE_WHITELIST</code></td>
+<td>白名单（只追踪匹配的）</td>
+<td>-</td>
+<td><code>TRACE_WHITELIST=ClassLinker,LoadClass</code></td>
+</tr>
+<tr>
+<td><code>TRACE_BLACKLIST</code></td>
+<td>黑名单（不追踪匹配的）</td>
+<td>-</td>
+<td><code>TRACE_BLACKLIST=mutex,lock</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="46">4.6 优缺点对比<a class="headerlink" href="#46" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方面</th>
+<th>手动插桩</th>
+<th>自动插桩</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>代码改动</strong></td>
+<td>每个函数都要加</td>
+<td>零改动</td>
+</tr>
+<tr>
+<td><strong>覆盖率</strong></td>
+<td>容易遗漏</td>
+<td>100% 覆盖</td>
+</tr>
+<tr>
+<td><strong>维护成本</strong></td>
+<td>高</td>
+<td>零维护</td>
+</tr>
+<tr>
+<td><strong>灵活性</strong></td>
+<td>可以精确控制</td>
+<td>通过白名单控制</td>
+</tr>
+<tr>
+<td><strong>参数记录</strong></td>
+<td>容易</td>
+<td>需要宏辅助</td>
+</tr>
+<tr>
+<td><strong>性能开销</strong></td>
+<td>可控（只插需要的）</td>
+<td>较大（但可过滤）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-trace">5. Trace 可视化<a class="headerlink" href="#5-trace" title="Permanent link">&para;</a></h2>
+<h3 id="51-perfetto-ui">5.1 Perfetto UI（推荐）⭐⭐⭐<a class="headerlink" href="#51-perfetto-ui" title="Permanent link">&para;</a></h3>
+<p><strong>访问地址</strong>：https://ui.perfetto.dev/</p>
+<p><strong>优势：</strong>
+- ✅ 直接支持 ftrace 格式（无需转换）
+- ✅ 现代化 UI 界面
+- ✅ 强大的分析功能
+- ✅ SQL 查询支持
+- ✅ 更好的大文件处理能力</p>
+<p><strong>使用方法：</strong>
+1. 访问 https://ui.perfetto.dev/
+2. 点击 "Open trace file"
+3. 选择您的 trace 文件
+4. 查看可视化时间线</p>
+<h3 id="52-chrome-tracing">5.2 Chrome Tracing<a class="headerlink" href="#52-chrome-tracing" title="Permanent link">&para;</a></h3>
+<p><strong>访问地址</strong>：<code>chrome://tracing</code></p>
+<p><strong>使用方法：</strong>
+1. 转换格式（如需要）：
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>python3<span class="w"> </span>ftrace_to_json.py<span class="w"> </span>output.trace<span class="w"> </span>output.json
+</span></code></pre></div>
+2. 打开 Chrome 浏览器
+3. 地址栏输入：<code>chrome://tracing</code>
+4. 点击 "Load" 按钮
+5. 选择 <code>output.json</code></p>
+<p><strong>快捷键：</strong>
+- <code>W/A/S/D</code> - 平移和缩放
+- <code>1/2/3/4</code> - 选择工具
+- <code>/</code> - 搜索事件
+- <code>?</code> - 显示帮助</p>
+<h3 id="53">5.3 可视化效果示例<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>时间轴 →
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>线程1 ┃ ████████████ fzw::GetClass::panda_file ████
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>      ┃    ███ LoadClass ███
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>      ┃        ██ LinkMethods ██
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>线程2 ┃     ████████ AnotherEvent ████████
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+</span></code></pre></div>
+<p><strong>可以看到：</strong>
+- ✅ 每个事件的开始和结束时间
+- ✅ 事件之间的调用关系（嵌套）
+- ✅ 不同线程的并行执行情况
+- ✅ 热点分析（哪个函数最耗时）</p>
+<hr />
+<h2 id="6">6. 常见问题<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61-trace">6.1 Trace 没有输出<a class="headerlink" href="#61-trace" title="Permanent link">&para;</a></h3>
+<p><strong>检查清单：</strong>
+1. ✅ 是否设置了 <code>PANDA_TRACE=1</code> 环境变量？
+2. ✅ 是否有 root 权限？（需要访问 <code>/sys/kernel/debug/tracing/trace_marker</code>）
+3. ✅ 是否启用了 ftrace tracing？（运行 trace_enable_wsl2.sh）
+4. ✅ 程序是否真的调用了 <code>Tracer::Start/Finish</code>？
+5. ✅ 编译时是否启用了 <code>-DENABLE_AUTO_TRACE=ON</code>（如果使用自动插桩）？</p>
+<p><strong>验证方法：</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># 检查 trace 文件中是否有您的标记</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>grep<span class="w"> </span><span class="s2">&quot;fzw::GetClass&quot;</span><span class="w"> </span>output.trace
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># 检查是否有 trace_marker 写入</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>grep<span class="w"> </span><span class="s2">&quot;tracing_mark_write&quot;</span><span class="w"> </span>output.trace
+</span></code></pre></div></p>
+<h3 id="62-undefined-reference">6.2 编译错误：undefined reference<a class="headerlink" href="#62-undefined-reference" title="Permanent link">&para;</a></h3>
+<p><strong>错误：</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>undefined reference to `ark::trace::internal::DoInt64TracePoint&#39;
+</span></code></pre></div></p>
+<p><strong>解决：</strong>
+- 确保 <code>DoIntTracePoint</code> 和 <code>DoInt64TracePoint</code> 函数有 <code>PANDA_PUBLIC_API</code> 标记
+- 检查链接了 <code>libarkbase.so</code></p>
+<h3 id="63-wsl2">6.3 WSL2 权限问题<a class="headerlink" href="#63-wsl2" title="Permanent link">&para;</a></h3>
+<p><strong>错误：</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>chmod: changing permissions of &#39;/sys/kernel/debug/tracing&#39;: Operation not permitted
+</span></code></pre></div></p>
+<p><strong>解决：</strong>
+- 这是 WSL2 的正常行为，不影响使用
+- 使用 <code>trace_enable_wsl2.sh</code> 脚本（跳过权限设置）
+- 以 root 身份运行即可直接访问</p>
+<h3 id="64">6.4 性能影响太大<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<p><strong>优化方案：</strong>
+1. 使用白名单：<code>TRACE_WHITELIST="ClassLinker"</code>
+2. 限制深度：<code>TRACE_MAX_DEPTH=5</code>
+3. 排除热路径：在函数前加 <code>__attribute__((no_instrument_function))</code>
+4. 只在需要时启用：开发/学习时开启，生产环境关闭</p>
+<h3 id="65-trace">6.5 Trace 文件太大<a class="headerlink" href="#65-trace" title="Permanent link">&para;</a></h3>
+<p><strong>解决方案：</strong>
+1. 使用 Perfetto UI（处理大文件能力更强）
+2. 使用白名单/黑名单过滤
+3. 限制追踪深度
+4. 缩短追踪时间</p>
+<h3 id="66-trace">6.6 嵌套 Trace 是否支持？<a class="headerlink" href="#66-trace" title="Permanent link">&para;</a></h3>
+<p><strong>答案：完全支持！</strong></p>
+<p>ftrace 使用栈结构（LIFO）处理嵌套的 Begin/End 对：</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="n">Tracer</span><span class="o">::</span><span class="n">Start</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">);</span><span class="w">      </span><span class="c1">// Begin A</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="n">Tracer</span><span class="o">::</span><span class="n">Start</span><span class="p">(</span><span class="s">&quot;B&quot;</span><span class="p">);</span><span class="w">      </span><span class="c1">// Begin B</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="n">Tracer</span><span class="o">::</span><span class="n">Finish</span><span class="p">();</span><span class="w">        </span><span class="c1">// End B</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="n">Tracer</span><span class="o">::</span><span class="n">Finish</span><span class="p">();</span><span class="w">        </span><span class="c1">// End A</span>
+</span></code></pre></div>
+<p><strong>输出：</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>B|pid|A
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>B|pid|B
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>E|
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>E|
+</span></code></pre></div></p>
+<p><strong>可视化：</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>A ┃ ████████████
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>B ┃    ████
+</span></code></pre></div></p>
+<hr />
+<h2 id="7">7. 快速参考<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 基本使用<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c1">// 在代码中添加 trace</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="n">Tracer</span><span class="o">::</span><span class="n">Start</span><span class="p">(</span><span class="s">&quot;MyFunction&quot;</span><span class="p">);</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="c1">// ... 业务逻辑 ...</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="n">Tracer</span><span class="o">::</span><span class="n">Finish</span><span class="p">();</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1"># 抓取 trace</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>sudo<span class="w"> </span>./scripts/trace_enable_wsl2.sh<span class="w"> </span>output.trace<span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">8192</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="nv">PANDA_TRACE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>sudo<span class="w"> </span>-E<span class="w"> </span>./your_program
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="c1"># 查看结果</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="c1"># https://ui.perfetto.dev/ -&gt; 打开 output.trace</span>
+</span></code></pre></div>
+<h3 id="72">7.2 自动插桩<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># 编译</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>cmake<span class="w"> </span>-DENABLE_AUTO_TRACE<span class="o">=</span>ON<span class="w"> </span>build
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="c1"># 运行</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="nv">PANDA_TRACE</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">TRACE_WHITELIST</span><span class="o">=</span><span class="s2">&quot;ClassLinker&quot;</span><span class="w"> </span>sudo<span class="w"> </span>-E<span class="w"> </span>./build/bin/ark<span class="w"> </span>app.abc
+</span></code></pre></div>
+<h3 id="73">7.3 关键文件位置<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tracer 类定义</td>
+<td><code>runtime/trace.h</code></td>
+</tr>
+<tr>
+<td>ftrace 实现</td>
+<td><code>platforms/unix/libarkbase/trace.cpp</code></td>
+</tr>
+<tr>
+<td>trace API</td>
+<td><code>libarkbase/trace/trace.h</code></td>
+</tr>
+<tr>
+<td>trace 脚本</td>
+<td><code>scripts/trace_enable_wsl2.sh</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="74">7.4 环境变量速查<a class="headerlink" href="#74" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PANDA_TRACE=1</code></td>
+<td>启用 trace（必需）</td>
+</tr>
+<tr>
+<td><code>TRACE_MAX_DEPTH=N</code></td>
+<td>限制追踪深度</td>
+</tr>
+<tr>
+<td><code>TRACE_WHITELIST="..."</code></td>
+<td>只追踪匹配的函数</td>
+</tr>
+<tr>
+<td><code>TRACE_BLACKLIST="..."</code></td>
+<td>不追踪匹配的函数</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8">8. 总结<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<h3 id="_13">核心要点<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Trace 系统架构</strong>：三层架构，条件编译选择实现（HiTrace 或 ftrace）</li>
+<li><strong>嵌套支持</strong>：完全支持，ftrace 使用栈结构</li>
+<li><strong>抓取方法</strong>：设置 <code>PANDA_TRACE=1</code> + root 权限 + ftrace 脚本</li>
+<li><strong>可视化工具</strong>：推荐 Perfetto UI（https://ui.perfetto.dev/）</li>
+<li><strong>自动插桩</strong>：使用 <code>-finstrument-functions</code> 编译选项</li>
+<li><strong>性能考虑</strong>：可通过白名单/黑名单/深度限制控制开销</li>
+</ol>
+<h3 id="_14">适用场景<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>学习代码</strong>：使用自动插桩，完整追踪执行流程</li>
+<li><strong>性能分析</strong>：先用 Perf 找热点，再用 Trace 看细节</li>
+<li><strong>调试问题</strong>：使用 Trace 查看精确的调用顺序和时间</li>
+<li><strong>生产环境</strong>：关闭 Trace 或使用白名单限制</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
