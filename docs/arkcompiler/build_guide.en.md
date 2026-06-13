@@ -1,4 +1,9 @@
+---
+title: ArkCompiler Build Guide
+order: 20
+---
 # ArkCompiler Build Guide
+
 
 This document consolidates the CMake build commands and Device LLVM build steps for ArkCompiler.
 

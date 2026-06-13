@@ -1,4 +1,10 @@
+---
+title: es2panda 开发指南
+title_en: es2panda Developer Guide
+order: 40
+---
 # es2panda Developer Guide
+
 
 本文档汇总并补充 `es2panda` 在编译 ArkTS (`.ets`) 时常见配置与实践，重点覆盖：声明依赖（`.d.ets`）、`arktsconfig.json`、标准库使用、以及导入路径解析的关键规则。
 

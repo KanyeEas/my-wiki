@@ -1,30 +1,38 @@
+---
+title: 首页
+title_en: Home
+order: 1
+---
 # 欢迎来到 Fanzewei 的 Wiki
 
 欢迎！这是我的个人知识库，用于记录我的学习旅程和技术笔记。
+内容主要集中在 **系统软件 (ArkCompiler)** 和 **算法 (LeetCode)** 等方面。
 
-内容主要集中在 **系统软件** 和 **算法** 方面。
+---
 
-## 📚 主要内容
+## 📚 主要板块
 
-### [ArkCompiler](arkcompiler/build_guide.zh.md)
-深入探讨 ArkCompiler 的使用、源码分析和构建系统。
-- **[编译指南](arkcompiler/build_guide.zh.md)**: 如何编译 ArkCompiler 和 Device LLVM。
-- **[Arena 分配器](arkcompiler/arena_allocator_testing_guide.zh.md)**: 内存管理优化的测试指南。
-- **[Trace 完整指南](arkcompiler/TRACE_COMPLETE_GUIDE.zh.md)**: 覆盖 Trace 原理、使用方法、可视化和自动插桩。
-- **[es2panda 开发指南](arkcompiler/es2panda-developer-guide.md)**: 常见配置、依赖管理与标准库使用实践。
-- **[锁实现完整分析](arkcompiler/LOCK_IMPLEMENTATION_WIKI.md)**: Ark Runtime 锁机制 Deep Dive，包含 Futex、死锁避免和性能优化。
+目前，本知识库包含以下两大核心板块：
 
-### [LeetCode](leetcode/cpp_binary_search_guide.zh.md)
-算法学习笔记和解题模式。
-- **[二分查找](leetcode/cpp_binary_search_guide.zh.md)**: C++ 模板和边界情况分析。
+### 🛠️ 编译器 (ArkCompiler)
+深入探讨 ArkCompiler 的运行原理、源码分析和构建调试系统。
+*   **编译与调试**：包含 ArkCompiler 与 Device LLVM 的完整编译及调试流程。
+*   **内存管理**：包含 Arena 分配器等内存管理的性能优化与测试指南。
+*   **运行时机制**：深入分析 Lock 锁机制、Futex 底层实现，以及 Trace 系统的运行原理与自动插桩技术。
+*   **前端编译**：包含 `es2panda` 编译器前端的配置、标准库编译及依赖分析。
 
-## 🛠️ 关于本站
+### 🧮 算法与数据结构 (LeetCode)
+系统性总结常用算法模板与高频题型，帮助夯实算法功底。
+*   **二分查找**：总结二分查找模板在不同边界情况下的 C++ STL 最佳实践。
 
-本站基于 [MkDocs](https://www.mkdocs.org/) 构建并托管于 GitHub Pages。支持：
-- 📝 基于 Markdown 的内容
-- 🌓 深色/浅色模式自动切换
-- ✏️ 直接在 GitHub 上编辑
-- 🔍 全文搜索
+---
+
+## 🔍 如何使用本站
+
+*   **侧边导航栏**：使用左侧的目录树快速浏览和切换具体的文章与章节。
+*   **顶部标签页**：使用顶部的 Tabs 快速在不同的板块（如编译器、算法）之间切换。
+*   **全文检索**：点击页面顶部的**搜索框**（或直接按 `s` 键），输入关键字进行全文检索，快速定位到目标技术笔记。
+*   **深色模式**：点击右上角太阳/月亮图标，可以在白昼 and 黑夜模式间自如切换。
 
 > [!TIP]
-> 使用顶部的 **搜索栏**（或按 `s`）快速查找任何主题。
+> 本 Wiki 现已全面接入 AI Agent 自动化管理。若您是 AI 编码助手，在接收到新增/编辑文章的需求时，请先阅读根目录下的 [Agents.md](file:///wsl.localhost/Ubuntu-22.04/home/fanzewei/docs/my-wiki/Agents.md) 了解自动化更新与部署的工作流程。

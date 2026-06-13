@@ -2,66 +2,69 @@ site_name: Fanzewei's Wiki
 site_url: https://KanyeEas.github.io/my-wiki/
 repo_url: https://github.com/KanyeEas/my-wiki
 repo_name: my-wiki
-
 theme:
   name: material
   features:
-    - navigation.tabs
-    - navigation.sections
-    - search.suggest
-    - search.highlight
-    - content.code.copy
+  - navigation.tabs
+  - navigation.sections
+  - search.suggest
+  - search.highlight
+  - content.code.copy
   palette:
-    # Switch to dark mode
-    - scheme: default
-      primary: teal
-      accent: purple
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: slate
-      primary: teal
-      accent: lime
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
-
+  - scheme: default
+    primary: teal
+    accent: purple
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - scheme: slate
+    primary: teal
+    accent: lime
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
 nav:
-  - Home: index.md
-  - Leetcode:
-    - C++ Binary Search Guide: leetcode/cpp_binary_search_guide.zh.md
-  - ArkCompiler:
-    - Arena Allocator Testing: arkcompiler/arena_allocator_testing_guide.md
-    - Build Guide: arkcompiler/build_guide.md
-    - Trace Complete Guide: arkcompiler/TRACE_COMPLETE_GUIDE.md
-    - es2panda Developer Guide: arkcompiler/es2panda-developer-guide.md
-    - Lock Implementation Analysis: arkcompiler/LOCK_IMPLEMENTATION_WIKI.md
-
+- Home: index.md
+- ArkCompiler:
+  - Arena 分配器测试指南: arkcompiler/arena_allocator_testing_guide.md
+  - ArkCompiler 编译指南: arkcompiler/build_guide.md
+  - Trace 完整指南: arkcompiler/TRACE_COMPLETE_GUIDE.md
+  - es2panda 开发指南: arkcompiler/es2panda-developer-guide.md
+  - 锁实现完整分析: arkcompiler/LOCK_IMPLEMENTATION_WIKI.md
+- 算法 (LeetCode):
+  - C++ STL 二分查找全景指南: leetcode/cpp_binary_search_guide.md
 markdown_extensions:
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - toc:
-      permalink: true
-
+- admonition
+- pymdownx.details
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format ''
+- pymdownx.highlight:
+    anchor_linenums: true
+    line_spans: __span
+    pygments_lang_class: true
+- pymdownx.inlinehilite
+- pymdownx.snippets
+- toc:
+    permalink: true
 plugins:
-  - search
-  - i18n:
-      docs_structure: suffix
-      fallback_to_default: true
-      languages:
-        - locale: en
-          name: English
-        - locale: zh
-          default: true
-          name: 简体中文
+- search
+- i18n:
+    docs_structure: suffix
+    fallback_to_default: true
+    languages:
+    - locale: en
+      name: English
+      nav_translations:
+        Home: Home
+        锁实现完整分析: Lock Implementation Analysis
+        Arena 分配器测试指南: Arena Allocator Testing Guide
+        ArkCompiler 编译指南: ArkCompiler Build Guide
+        es2panda 开发指南: es2panda Developer Guide
+        ArkCompiler: ArkCompiler
+        算法 (LeetCode): LeetCode
+    - locale: zh
+      default: true
+      name: 简体中文

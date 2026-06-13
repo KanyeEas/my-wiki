@@ -1,4 +1,9 @@
+---
+title: Arena Allocator Testing Guide
+order: 10
+---
 # ArenaAllocator Optimization Testing Guide
+
 
 This document describes how to compile and run the test suites associated with the ArenaAllocator optimization (Reset functionality and Thread-local pooling).
 

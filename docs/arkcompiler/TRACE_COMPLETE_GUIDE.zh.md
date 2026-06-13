@@ -1,4 +1,9 @@
+---
+title: Trace 完整指南
+order: 30
+---
 # ARK Runtime Trace 完整指南
+
 
 > 本文档涵盖 Trace 系统的实现原理、使用方法、可视化工具和高级技巧
 
