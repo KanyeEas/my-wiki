@@ -1,0 +1,1644 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://KanyeEas.github.io/my-wiki/en/arkcompiler/build_guide/">
+      
+      
+        <link rel="prev" href="../arena_allocator_testing_guide/">
+      
+      
+        <link rel="next" href="../TRACE_COMPLETE_GUIDE/">
+      
+      
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+          <link rel="alternate" href="../../../arkcompiler/build_guide/" hreflang="zh">
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>ArkCompiler Build Guide - Fanzewei's Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arkcompiler-llvm-interpreter-build-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../" title="Fanzewei&#39;s Wiki" class="md-header__button md-logo" aria-label="Fanzewei's Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Fanzewei's Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ArkCompiler Build Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="../../../arkcompiler/build_guide/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/KanyeEas/my-wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../arena_allocator_testing_guide/" class="md-tabs__link">
+          
+  
+  
+  ArkCompiler
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../leetcode/cpp_binary_search_guide/" class="md-tabs__link">
+          
+  
+  
+  LeetCode
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../" title="Fanzewei&#39;s Wiki" class="md-nav__button md-logo" aria-label="Fanzewei's Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Fanzewei's Wiki
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/KanyeEas/my-wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    my-wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ArkCompiler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ArkCompiler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arena_allocator_testing_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arena Allocator Testing Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ArkCompiler Build Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ArkCompiler Build Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-1-host-cmake-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command 1: Host CMake Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-2-sdk-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command 2: SDK Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-llvm-backend-cmake-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. LLVM Backend CMake Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-llvm-prebuilts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. LLVM Prebuilts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-recommended-linux-x86_64-host-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Recommended Linux x86_64 Host Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-recommended-ohos-arm64-device-sdk-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Recommended OHOS Arm64 Device SDK Build
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Recommended OHOS Arm64 Device SDK Build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-ohos_arm64-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What --ohos_arm64 Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-linux_tools-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What --linux_tools Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-ets_std_lib-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What --ets_std_lib Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-host-tools-inside-the-sdk-cross-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Host Tools Inside the SDK Cross Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-the-llvm-interpreter-is-selected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. How the LLVM Interpreter Is Selected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-deploying-ohos-arm64-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Deploying OHOS Arm64 Artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-common-misunderstandings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Common Misunderstandings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Common Misunderstandings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-1-command-2-depends-on-command-1-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 1: Command 2 depends on Command 1 output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-2-ohos_arm64-means-linux-arm64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 2: --ohos_arm64 means Linux Arm64
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-3-llvm-fastpath-can-be-enabled-for-host-x86_64-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 3: LLVM fastpath can be enabled for host x86_64 builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-4-cross-builds-need-only-one-llvm-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 4: Cross builds need only one LLVM path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-5-llvm_dir-is-the-recommended-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 5: LLVM_DIR is the recommended parameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-minimal-decision-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Minimal Decision Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TRACE_COMPLETE_GUIDE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trace 完整指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../es2panda-developer-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    es2panda Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LOCK_IMPLEMENTATION_WIKI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lock Implementation Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LeetCode
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    LeetCode
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../leetcode/cpp_binary_search_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C++ STL 二分查找全景指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Summary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-1-host-cmake-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command 1: Host CMake Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#command-2-sdk-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command 2: SDK Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-llvm-backend-cmake-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. LLVM Backend CMake Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-llvm-prebuilts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. LLVM Prebuilts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-recommended-linux-x86_64-host-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Recommended Linux x86_64 Host Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-recommended-ohos-arm64-device-sdk-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Recommended OHOS Arm64 Device SDK Build
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Recommended OHOS Arm64 Device SDK Build">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-ohos_arm64-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What --ohos_arm64 Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-linux_tools-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What --linux_tools Builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-ets_std_lib-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What --ets_std_lib Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-host-tools-inside-the-sdk-cross-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Host Tools Inside the SDK Cross Build
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-how-the-llvm-interpreter-is-selected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. How the LLVM Interpreter Is Selected
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-deploying-ohos-arm64-artifacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Deploying OHOS Arm64 Artifacts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-common-misunderstandings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Common Misunderstandings
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Common Misunderstandings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-1-command-2-depends-on-command-1-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 1: Command 2 depends on Command 1 output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-2-ohos_arm64-means-linux-arm64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 2: --ohos_arm64 means Linux Arm64
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-3-llvm-fastpath-can-be-enabled-for-host-x86_64-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 3: LLVM fastpath can be enabled for host x86_64 builds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-4-cross-builds-need-only-one-llvm-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 4: Cross builds need only one LLVM path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#misunderstanding-5-llvm_dir-is-the-recommended-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Misunderstanding 5: LLVM_DIR is the recommended parameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-minimal-decision-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Minimal Decision Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="arkcompiler-llvm-interpreter-build-guide">ArkCompiler LLVM Interpreter Build Guide<a class="headerlink" href="#arkcompiler-llvm-interpreter-build-guide" title="Permanent link">&para;</a></h1>
+<p>This document summarizes how the current <code>static_core</code> CMake and SDK build system handles runtime artifacts with LLVM interpreter support.</p>
+<p>It focuses on two common command patterns:</p>
+<ol>
+<li>Building Linux x86_64 host artifacts directly with CMake.</li>
+<li>Building OHOS Arm64 device artifacts and Linux host tools with <code>scripts/sdk/build_sdk.sh</code>.</li>
+</ol>
+<p>The analysis is based on the current repository sources, mainly:</p>
+<ul>
+<li><code>CMakeLists.txt</code></li>
+<li><code>cmake/Definitions.cmake</code></li>
+<li><code>libllvmbackend/cmake/LLVM.cmake</code></li>
+<li><code>cmake/HostTools.cmake</code></li>
+<li><code>runtime/options.yaml</code></li>
+<li><code>runtime/interpreter/interpreter_impl.cpp</code></li>
+<li><code>runtime/CMakeLists.txt</code></li>
+<li><code>irtoc/backend/CMakeLists.txt</code></li>
+<li><code>plugins/ets/runtime/CMakeLists.txt</code></li>
+<li><code>scripts/sdk/build_sdk.sh</code></li>
+<li><code>scripts/sdk/build_sdk_lib</code></li>
+</ul>
+<h2 id="1-summary">1. Summary<a class="headerlink" href="#1-summary" title="Permanent link">&para;</a></h2>
+<h3 id="command-1-host-cmake-build">Command 1: Host CMake Build<a class="headerlink" href="#command-1-host-cmake-build" title="Permanent link">&para;</a></h3>
+<p>Original command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>../scripts/install-deps-ubuntu<span class="w"> </span>-i<span class="o">=</span>llvm-prebuilts
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>build
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>cmake<span class="w"> </span>..<span class="w"> </span>-DPANDA_LLVM_BACKEND<span class="o">=</span>ON<span class="w"> </span>-DPANDA_LLVM_INTERPRETER<span class="o">=</span>ON<span class="w"> </span>-DPANDA_LLVM_FASTPATH<span class="o">=</span>ON<span class="w"> </span>-DLLVM_DIR<span class="o">=</span>/path/to/llvm-15-prebuilts/lib/cmake/llvm/
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>ninja<span class="w"> </span>all
+</span></code></pre></div>
+<p>Without a cross-compilation toolchain, <code>cmake ..</code> builds for the current host platform. On a typical development machine, this means Linux x86_64 host artifacts, not OHOS/Arm64 device artifacts.</p>
+<p>There is also an important current-source restriction: Linux x86_64 non-cross builds do not support explicitly enabling <code>PANDA_LLVM_FASTPATH=ON</code>. For <code>PANDA_TARGET_AMD64 AND NOT CMAKE_CROSSCOMPILING AND NOT HOST_TOOLS</code>, <code>cmake/Definitions.cmake</code> fails configuration with:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>PANDA_LLVM_FASTPATH is not supported for x86_64
+</span></code></pre></div>
+<p>So this command must be adjusted for the current repository. At minimum, do not pass <code>-DPANDA_LLVM_FASTPATH=ON</code> for a Linux x86_64 host build.</p>
+<h3 id="command-2-sdk-build">Command 2: SDK Build<a class="headerlink" href="#command-2-sdk-build" title="Permanent link">&para;</a></h3>
+<p>Original command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>static_core/scripts/sdk
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>./build_sdk.sh<span class="w"> </span>build-sdk<span class="w"> </span>--build_type<span class="o">=</span>Release<span class="w"> </span>--ohos_arm64<span class="w"> </span>--ets_std_lib<span class="w"> </span>--linux_tools
+</span></code></pre></div>
+<p>Here <code>build-sdk</code> is the SDK build destination name, not a subcommand. By default, the final SDK is written to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>static_core/scripts/sdk/build-sdk/sdk
+</span></code></pre></div>
+<p>This command builds two kinds of artifacts:</p>
+<ul>
+<li><code>--ohos_arm64</code>: OHOS/aarch64 device runtime and related libraries.</li>
+<li><code>--linux_tools</code>: Linux x86_64 host tools, such as <code>es2panda</code>, <code>ark_link</code>, <code>ark_disasm</code>, <code>verifier</code>, and host versions of <code>ark</code> and <code>ark_aot</code>.</li>
+</ul>
+<p>It does not depend on the build directory produced by Command 1. Both command flows depend on the same LLVM prebuilts, but they create separate CMake build trees.</p>
+<h2 id="2-llvm-backend-cmake-options">2. LLVM Backend CMake Options<a class="headerlink" href="#2-llvm-backend-cmake-options" title="Permanent link">&para;</a></h2>
+<p><code>PANDA_LLVM_BACKEND=ON</code> is the top-level switch. Once enabled, CMake derives or accepts the following feature flags depending on target platform and explicit user arguments:</p>
+<ul>
+<li><code>PANDA_LLVM_INTERPRETER</code>: LLVM irtoc interpreter. Enabled by default.</li>
+<li><code>PANDA_LLVM_AOT</code>: LLVM AOT compiler. Enabled by default.</li>
+<li><code>PANDA_LLVM_FASTPATH</code>: LLVM fastpath objects. Enabled by default for Arm64 and cross builds, but disabled by default for Linux x86_64 non-cross builds. Explicitly enabling it for Linux x86_64 host builds is an error.</li>
+<li><code>PANDA_LLVM_IRTOC</code>: Internal flag. Set when LLVM interpreter or LLVM fastpath generation is needed.</li>
+<li><code>PANDA_BUILD_LLVM_BACKEND</code>: Internal flag. Decides whether <code>libllvmbackend</code> should be built.</li>
+</ul>
+<p>The corresponding logic is in <code>cmake/Definitions.cmake</code>:</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">option</span><span class="p">(</span><span class="s">PANDA_LLVM_BACKEND</span><span class="w"> </span><span class="s2">&quot;Enable LLVM backend for Ark compiler&quot;</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">PANDA_LLVM_BACKEND</span><span class="p">)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">DEFINED</span><span class="w"> </span><span class="s">PANDA_LLVM_INTERPRETER</span><span class="p">)</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">        </span><span class="nb">set</span><span class="p">(</span><span class="s">PANDA_LLVM_INTERPRETER</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nb">endif</span><span class="p">()</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">PANDA_TARGET_AMD64</span><span class="w"> </span><span class="s">AND</span><span class="w"> </span><span class="s">NOT</span><span class="w"> </span><span class="s">CMAKE_CROSSCOMPILING</span><span class="w"> </span><span class="s">AND</span><span class="w"> </span><span class="s">NOT</span><span class="w"> </span><span class="s">HOST_TOOLS</span><span class="p">)</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">        </span><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">DEFINED</span><span class="w"> </span><span class="s">PANDA_LLVM_FASTPATH</span><span class="p">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">            </span><span class="nb">set</span><span class="p">(</span><span class="s">PANDA_LLVM_FASTPATH</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="nb">elseif</span><span class="p">(</span><span class="s">PANDA_LLVM_FASTPATH</span><span class="p">)</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">            </span><span class="nb">message</span><span class="p">(</span><span class="s">FATAL_ERROR</span><span class="w"> </span><span class="s2">&quot;PANDA_LLVM_FASTPATH is not supported for x86_64&quot;</span><span class="p">)</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="nb">endif</span><span class="p">()</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="nb">else</span><span class="p">()</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">DEFINED</span><span class="w"> </span><span class="s">PANDA_LLVM_FASTPATH</span><span class="p">)</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">            </span><span class="nb">set</span><span class="p">(</span><span class="s">PANDA_LLVM_FASTPATH</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">        </span><span class="nb">endif</span><span class="p">()</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="nb">endif</span><span class="p">()</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="nb">if</span><span class="w"> </span><span class="p">(</span><span class="s">NOT</span><span class="w"> </span><span class="s">DEFINED</span><span class="w"> </span><span class="s">PANDA_LLVM_AOT</span><span class="p">)</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="nb">set</span><span class="p">(</span><span class="s">PANDA_LLVM_AOT</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="nb">endif</span><span class="p">()</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="nb">endif</span><span class="p">()</span>
+</span></code></pre></div>
+<h2 id="3-llvm-prebuilts">3. LLVM Prebuilts<a class="headerlink" href="#3-llvm-prebuilts" title="Permanent link">&para;</a></h2>
+<p>Install the Ark-modified LLVM 15 prebuilts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/runtime_core/static_core
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>./scripts/install-deps-ubuntu<span class="w"> </span>-i<span class="o">=</span>llvm-prebuilts
+</span></code></pre></div>
+<p>The dependency installs Ark-modified LLVM 15 prebuilts. Common paths prepared by the current installer include:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>/opt/llvm-15-release-x86_64
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/opt/llvm-15-debug-x86_64
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/opt/llvm-15-release-aarch64
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/opt/llvm-15-debug-aarch64
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>/opt/llvm-15-release-ohos
+</span></code></pre></div>
+<p>The SDK script also has default variables for FastVerify paths, such as <code>/opt/llvm-15-release-aarch64-fastverify</code> and <code>/opt/llvm-15-release-ohos-fastverify</code>. If using <code>--build_type=FastVerify</code>, make sure those directories exist or override them with the corresponding <code>--llvm_prebuilts_*_fastverify=...</code> options.</p>
+<p>The repository README and SDK scripts primarily use <code>LLVM_TARGET_PATH</code>, for example:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>-DLLVM_TARGET_PATH<span class="o">=</span>/opt/llvm-15-release-x86_64
+</span></code></pre></div>
+<p><code>libllvmbackend/cmake/LLVM.cmake</code> finds LLVM with:</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">find_package</span><span class="p">(</span><span class="s">LLVM</span><span class="w"> </span><span class="s">15</span><span class="w"> </span><span class="s">REQUIRED</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">NO_DEFAULT_PATH</span><span class="w"> </span><span class="s">CMAKE_FIND_ROOT_PATH_BOTH</span><span class="w"> </span><span class="s">PATHS</span><span class="w"> </span><span class="o">${</span><span class="nv">LLVM_TARGET_PATH</span><span class="o">}</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Passing <code>LLVM_DIR=/path/to/lib/cmake/llvm</code> may work in some configurations, but it is not the main convention used by this repository. Prefer <code>LLVM_TARGET_PATH</code>.</p>
+<p>Cross builds need two LLVM paths:</p>
+<ul>
+<li><code>LLVM_TARGET_PATH</code>: target-platform LLVM, for example <code>/opt/llvm-15-release-ohos</code> for OHOS/aarch64.</li>
+<li><code>LLVM_HOST_PATH</code>: host LLVM used by host tools, for example <code>/opt/llvm-15-release-x86_64</code>.</li>
+</ul>
+<h2 id="4-recommended-linux-x86_64-host-build">4. Recommended Linux x86_64 Host Build<a class="headerlink" href="#4-recommended-linux-x86_64-host-build" title="Permanent link">&para;</a></h2>
+<p>Use this when you need Linux x86_64 host <code>ark</code>, <code>ark_aot</code>, runtime libraries, and LLVM backend support:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/runtime_core/static_core
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>sudo<span class="w"> </span>./scripts/install-deps-ubuntu<span class="w"> </span>-i<span class="o">=</span>llvm-prebuilts
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build-llvm-host<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span>-GNinja<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>cmake/toolchain/host_clang_14.cmake<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span>-DPANDA_LLVM_BACKEND<span class="o">=</span>ON<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span>-DPANDA_LLVM_FASTPATH<span class="o">=</span>OFF<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">  </span>-DLLVM_TARGET_PATH<span class="o">=</span>/opt/llvm-15-release-x86_64
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>ninja<span class="w"> </span>-C<span class="w"> </span>build-llvm-host<span class="w"> </span>all
+</span></code></pre></div>
+<p>If you only need the core runtime and AOT tool, build a smaller target set:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ninja<span class="w"> </span>-C<span class="w"> </span>build-llvm-host<span class="w"> </span>ark<span class="w"> </span>ark_aot<span class="w"> </span>arkruntime<span class="w"> </span>llvmbackend
+</span></code></pre></div>
+<p>Typical artifacts:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>build-llvm-host/bin/ark
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>build-llvm-host/bin/ark_aot
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>build-llvm-host/lib/libarkruntime.so
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>build-llvm-host/lib/libllvmbackend.so
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>build-llvm-host/lib/libLLVM-15.so
+</span></code></pre></div>
+<p>Do not pass <code>-DPANDA_LLVM_FASTPATH=ON</code> for a Linux x86_64 host build in the current repository.</p>
+<h2 id="5-recommended-ohos-arm64-device-sdk-build">5. Recommended OHOS Arm64 Device SDK Build<a class="headerlink" href="#5-recommended-ohos-arm64-device-sdk-build" title="Permanent link">&para;</a></h2>
+<p>Use this to build OHOS/aarch64 device runtime artifacts and Linux host tools:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">cd</span><span class="w"> </span>/path/to/runtime_core/static_core
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>sudo<span class="w"> </span>./scripts/install-deps-ubuntu<span class="w"> </span>-i<span class="o">=</span>llvm-prebuilts
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nb">cd</span><span class="w"> </span>scripts/sdk
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>./build_sdk.sh<span class="w"> </span>build-sdk<span class="w"> </span>--build_type<span class="o">=</span>Release<span class="w"> </span>--ohos_arm64<span class="w"> </span>--ets_std_lib<span class="w"> </span>--linux_tools
+</span></code></pre></div>
+<p>Default output directory:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>static_core/scripts/sdk/build-sdk/sdk
+</span></code></pre></div>
+<h3 id="what-ohos_arm64-builds">What <code>--ohos_arm64</code> Builds<a class="headerlink" href="#what-ohos_arm64-builds" title="Permanent link">&para;</a></h3>
+<p><code>ohos_arm64()</code> in <code>scripts/sdk/build_sdk_lib</code> configures a cross build:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>static_core/scripts/sdk/build-sdk/ohos_arm64
+</span></code></pre></div>
+<p>Key CMake arguments:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>cmake/toolchain/cross-ohos-musl-aarch64.cmake
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>-DTOOLCHAIN_SYSROOT<span class="o">=</span><span class="nv">$OHOS_SDK_NATIVE</span>/sysroot
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>-DTOOLCHAIN_CLANG_ROOT<span class="o">=</span><span class="nv">$OHOS_SDK_NATIVE</span>/llvm
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>-DPANDA_ETS_INTEROP_JS<span class="o">=</span>ON
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>-DPANDA_LLVM_BACKEND<span class="o">=</span>ON
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>-DLLVM_TARGET_PATH<span class="o">=</span>/opt/llvm-15-release-ohos
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>-DLLVM_HOST_PATH<span class="o">=</span>/opt/llvm-15-release-x86_64
+</span></code></pre></div>
+<p>The toolchain file sets:</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="err">CMAKE_SYSTEM_NAME</span><span class="w">      </span><span class="err">=</span><span class="w"> </span><span class="err">OHOS</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="err">CMAKE_SYSTEM_PROCESSOR</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">aarch64</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="err">PANDA_TRIPLET</span><span class="w">          </span><span class="err">=</span><span class="w"> </span><span class="err">aarch64-linux-ohos</span>
+</span></code></pre></div>
+<p>Build targets include:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ark
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>ark_aot
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>arkruntime
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>arkassembler
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>ets_interop_js_napi
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>e2p_test_plugin
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>ani_helpers
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>aspt_converter
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>dependency_analyzer
+</span></code></pre></div>
+<p>Key device artifacts copied into the SDK:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sdk/ohos_arm64/bin/ark
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>sdk/ohos_arm64/bin/ark_aot
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>sdk/ohos_arm64/lib/libarkruntime.so
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>sdk/ohos_arm64/lib/libarkcompiler.so
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>sdk/ohos_arm64/lib/libllvmbackend.so
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>sdk/ohos_arm64/lib/libLLVM-15.so
+</span></code></pre></div>
+<p>Full copy list:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>scripts/sdk/ohos_arm64.txt
+</span></code></pre></div>
+<h3 id="what-linux_tools-builds">What <code>--linux_tools</code> Builds<a class="headerlink" href="#what-linux_tools-builds" title="Permanent link">&para;</a></h3>
+<p><code>linux_tools()</code> configures a Linux x86_64 host build:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>static_core/scripts/sdk/build-sdk/linux_host_tools
+</span></code></pre></div>
+<p>Key CMake arguments:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>-DCMAKE_TOOLCHAIN_FILE<span class="o">=</span>cmake/toolchain/host_clang_14.cmake
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>-DPANDA_CROSS_AARCH64_TOOLCHAIN_FILE<span class="o">=</span>cmake/toolchain/cross-ohos-musl-aarch64.cmake
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>-DTOOLCHAIN_SYSROOT<span class="o">=</span><span class="nv">$OHOS_SDK_NATIVE</span>/sysroot
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>-DTOOLCHAIN_CLANG_ROOT<span class="o">=</span><span class="nv">$OHOS_SDK_NATIVE</span>/llvm
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>-DPANDA_ETS_INTEROP_JS<span class="o">=</span>ON
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>-DPANDA_LLVM_BACKEND<span class="o">=</span>ON
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>-DLLVM_TARGET_PATH<span class="o">=</span>/opt/llvm-15-release-x86_64
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>-DLLVM_HOST_PATH<span class="o">=</span>/opt/llvm-15-release-x86_64
+</span></code></pre></div>
+<p>Build targets include:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ark
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>ark_aot
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>ets_interop_js_napi
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>ark_disasm
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>ark_link
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>es2panda
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>etssdk
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>e2p_test_plugin
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>verifier
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>ani_helpers
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>aspt_converter
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>dependency_analyzer
+</span></code></pre></div>
+<p>Key host tools copied into the SDK:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sdk/linux_host_tools/bin/ark
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>sdk/linux_host_tools/bin/ark_aot
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>sdk/linux_host_tools/bin/ark_disasm
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>sdk/linux_host_tools/bin/ark_link
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>sdk/linux_host_tools/bin/es2panda
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>sdk/linux_host_tools/bin/verifier
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>sdk/linux_host_tools/lib/libllvmbackend.so
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>sdk/linux_host_tools/lib/libLLVM-15.so
+</span></code></pre></div>
+<p>Full copy list:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>scripts/sdk/linux_host_tools.txt
+</span></code></pre></div>
+<h3 id="what-ets_std_lib-does">What <code>--ets_std_lib</code> Does<a class="headerlink" href="#what-ets_std_lib-does" title="Permanent link">&para;</a></h3>
+<p>This option does not enable LLVM and does not select a target platform. It only copies ETS standard library source directories into the SDK:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>plugins/ets/stdlib/std
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>plugins/ets/stdlib/arkruntime
+</span></code></pre></div>
+<p>If <code>etsstdlib.abc</code> is generated during the build, <code>copy_abc_files()</code> copies it to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>sdk/ets/etsstdlib.abc
+</span></code></pre></div>
+<h2 id="6-host-tools-inside-the-sdk-cross-build">6. Host Tools Inside the SDK Cross Build<a class="headerlink" href="#6-host-tools-inside-the-sdk-cross-build" title="Permanent link">&para;</a></h2>
+<p>When cross-compiling OHOS Arm64 artifacts, target binaries cannot run on the Linux host. However, the build still needs host-executable tools to generate code, especially irtoc objects.</p>
+<p>For this reason, <code>cmake/HostTools.cmake</code> creates an internal host-tools build inside the OHOS Arm64 build tree:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>static_core/scripts/sdk/build-sdk/ohos_arm64/host-tools-build
+</span></code></pre></div>
+<p>It uses <code>LLVM_HOST_PATH</code> as its LLVM target path:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>-DLLVM_TARGET_PATH<span class="o">=</span><span class="si">${</span><span class="nv">LLVM_HOST_PATH</span><span class="si">}</span>
+</span></code></pre></div>
+<p>It produces generated objects required by the target build, such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>irtoc_fastpath.o
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>irtoc_fastpath_llvm.o
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>irtoc_interpreter.o
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>irtoc_interpreter_llvm.o
+</span></code></pre></div>
+<p>This internal host-tools build is not the same as the SDK <code>--linux_tools</code> build:</p>
+<ul>
+<li><code>ohos_arm64/host-tools-build</code>: internal build-time tools used by the OHOS Arm64 cross build.</li>
+<li><code>linux_host_tools</code>: delivered SDK tools for Linux x86_64 hosts.</li>
+</ul>
+<h2 id="7-how-the-llvm-interpreter-is-selected">7. How the LLVM Interpreter Is Selected<a class="headerlink" href="#7-how-the-llvm-interpreter-is-selected" title="Permanent link">&para;</a></h2>
+<p>The runtime default is declared in <code>runtime/options.yaml</code>:</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">interpreter-type</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">std::string</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">llvm</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">  </span><span class="nt">possible_values</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">cpp</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">irtoc</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">llvm</span><span class="p p-Indicator">]</span>
+</span></code></pre></div>
+<p>When <code>PANDA_LLVM_INTERPRETER</code> is defined, <code>--interpreter-type=llvm</code> enters:</p>
+<div class="language-cpp highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">ExecuteImplFast_LLVM</span><span class="p">(...)</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">ExecuteImplFastEH_LLVM</span><span class="p">(...)</span>
+</span></code></pre></div>
+<p>If <code>PANDA_LLVM_INTERPRETER</code> is not defined, the default <code>llvm</code> mode is downgraded to <code>irtoc</code>. If <code>PANDA_WITH_IRTOC</code> is not defined either, it is further downgraded to <code>cpp</code>.</p>
+<p>For benchmarks and debugging, pass the interpreter explicitly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>--interpreter-type<span class="o">=</span>llvm
+</span></code></pre></div>
+<p>This avoids assuming that the default always reaches the LLVM interpreter.</p>
+<h2 id="8-deploying-ohos-arm64-artifacts">8. Deploying OHOS Arm64 Artifacts<a class="headerlink" href="#8-deploying-ohos-arm64-artifacts" title="Permanent link">&para;</a></h2>
+<p>After the SDK build, device-side artifacts are under:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>static_core/scripts/sdk/build-sdk/sdk/ohos_arm64
+</span></code></pre></div>
+<p>Common files to deploy:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>sdk/ohos_arm64/bin/ark
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>sdk/ohos_arm64/bin/ark_aot
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>sdk/ohos_arm64/lib/
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>sdk/ets/etsstdlib.abc
+</span></code></pre></div>
+<p>Make sure the device runtime can find the shared libraries, especially:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>libarkruntime.so
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>libarkcompiler.so
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>libllvmbackend.so
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>libLLVM-15.so
+</span></code></pre></div>
+<p>If deploying manually, set <code>LD_LIBRARY_PATH</code> to the deployed <code>lib</code> directory.</p>
+<h2 id="9-common-misunderstandings">9. Common Misunderstandings<a class="headerlink" href="#9-common-misunderstandings" title="Permanent link">&para;</a></h2>
+<h3 id="misunderstanding-1-command-2-depends-on-command-1-output">Misunderstanding 1: Command 2 depends on Command 1 output<a class="headerlink" href="#misunderstanding-1-command-2-depends-on-command-1-output" title="Permanent link">&para;</a></h3>
+<p>It does not. <code>build_sdk.sh</code> creates its own <code>ohos_arm64</code> and <code>linux_host_tools</code> build directories. It depends on LLVM prebuilts, OHOS SDK native, source files, and third-party dependencies.</p>
+<h3 id="misunderstanding-2-ohos_arm64-means-linux-arm64">Misunderstanding 2: <code>--ohos_arm64</code> means Linux Arm64<a class="headerlink" href="#misunderstanding-2-ohos_arm64-means-linux-arm64" title="Permanent link">&para;</a></h3>
+<p>It does not. <code>--ohos_arm64</code> uses <code>cross-ohos-musl-aarch64.cmake</code>; the target OS is OHOS and the target architecture is aarch64.</p>
+<p>For Linux/aarch64 tools, use:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>--linux_arm64_tools
+</span></code></pre></div>
+<h3 id="misunderstanding-3-llvm-fastpath-can-be-enabled-for-host-x86_64-builds">Misunderstanding 3: LLVM fastpath can be enabled for host x86_64 builds<a class="headerlink" href="#misunderstanding-3-llvm-fastpath-can-be-enabled-for-host-x86_64-builds" title="Permanent link">&para;</a></h3>
+<p>Not in the current repository. For Linux x86_64 host builds, either omit <code>PANDA_LLVM_FASTPATH</code> and let CMake disable it by default, or pass:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>-DPANDA_LLVM_FASTPATH<span class="o">=</span>OFF
+</span></code></pre></div>
+<h3 id="misunderstanding-4-cross-builds-need-only-one-llvm-path">Misunderstanding 4: Cross builds need only one LLVM path<a class="headerlink" href="#misunderstanding-4-cross-builds-need-only-one-llvm-path" title="Permanent link">&para;</a></h3>
+<p>With full LLVM backend functionality enabled, cross builds need both:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>-DLLVM_TARGET_PATH<span class="o">=</span>/opt/llvm-15-release-ohos
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>-DLLVM_HOST_PATH<span class="o">=</span>/opt/llvm-15-release-x86_64
+</span></code></pre></div>
+<p>The SDK script passes both automatically.</p>
+<h3 id="misunderstanding-5-llvm_dir-is-the-recommended-parameter">Misunderstanding 5: <code>LLVM_DIR</code> is the recommended parameter<a class="headerlink" href="#misunderstanding-5-llvm_dir-is-the-recommended-parameter" title="Permanent link">&para;</a></h3>
+<p>The current repository convention is <code>LLVM_TARGET_PATH</code>. <code>LLVM_DIR</code> may work, but it is not the primary path convention used by the README and SDK scripts.</p>
+<h2 id="10-minimal-decision-table">10. Minimal Decision Table<a class="headerlink" href="#10-minimal-decision-table" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Recommended command</th>
+<th>Runs on</th>
+<th>Main output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux x86_64 host runtime and tools</td>
+<td>Host CMake build</td>
+<td>Host</td>
+<td><code>build/bin</code>, <code>build/lib</code></td>
+</tr>
+<tr>
+<td>OHOS Arm64 device runtime</td>
+<td><code>build_sdk.sh --ohos_arm64</code></td>
+<td>Device</td>
+<td><code>sdk/ohos_arm64</code></td>
+</tr>
+<tr>
+<td>Linux x86_64 host SDK tools</td>
+<td><code>build_sdk.sh --linux_tools</code></td>
+<td>Host</td>
+<td><code>sdk/linux_host_tools</code></td>
+</tr>
+<tr>
+<td>Linux Arm64 tools</td>
+<td><code>build_sdk.sh --linux_arm64_tools</code></td>
+<td>Linux/aarch64 or QEMU scenarios</td>
+<td><code>sdk/linux_arm64_host_tools</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
